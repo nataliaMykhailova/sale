@@ -8,4 +8,6 @@ public interface UserServiсe {
     User save(User user);
 
     List<User> findAll();
+
+    User getUserByEmail(String email);
 }

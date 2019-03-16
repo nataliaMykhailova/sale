@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,23 +35,22 @@ import java.util.Collections;
 import java.util.Date;
 
 public class AuthenTokenFilter extends OncePerRequestFilter {
+    @Qualifier("jwtUserServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Value("${jwt.header}")
+    private String tokenHeader;
 
-    static final long EXPIRATIONTIME = 30000;
-    static final String SECRET = "ThisIsASecret";
-    static final String TOKEN_PREFIX = "Bearer";
-    static final String HEADER_STRING = "Authorization";
 
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        String authToken = request.getHeader(HEADER_STRING);
-        if (authToken != null&authToken.length()>7) {
+        String authToken = request.getHeader(tokenHeader);
+        if (authToken != null && authToken.length()>7) {
                 authToken.substring(7);
         }
         String username = jwtUtil.getUsernameFromToken(authToken);

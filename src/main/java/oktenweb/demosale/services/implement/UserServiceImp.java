@@ -30,4 +30,9 @@ public class UserServiceImp implements UserServiсe {
     public List<User> findAll() {
         return userDao.findAll();
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.findByEmailIgnoreCase(email);
+    }
 }

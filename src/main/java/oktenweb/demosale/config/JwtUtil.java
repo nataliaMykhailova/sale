@@ -5,6 +5,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import oktenweb.demosale.models.JwtUser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,12 @@ public class JwtUtil implements Serializable {
     static final String CLAM_KEY_AUDIENCE = "audience";
     static final String CLAM_KEY_CREATED = "created";
 
-        static final long EXPIRATIONTIME = 30000;
-        static final String SECRET = "ThisIsASecret";
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.expiration}")
+    private Long expiration;
+
 
     public String getUsernameFromToken(String token) {
             String username = null;
@@ -39,7 +44,7 @@ public class JwtUtil implements Serializable {
     private Claims getClaimsFromToken(String token) {
         Claims claims = null;
         try {
-            claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJwt(token).getBody();
+            claims = Jwts.parser().setSigningKey(secret).parseClaimsJwt(token).getBody();
         } catch (Exception e) {
             claims = null;
         }
@@ -81,11 +86,11 @@ public class JwtUtil implements Serializable {
     }
 
     private String generateToken(Map<String, Object> clamis) {
-        return Jwts.builder().setClaims(clamis).setExpiration(generateExpirationDate()).signWith(SignatureAlgorithm.ES512, SECRET).compact();
+        return Jwts.builder().setClaims(clamis).setExpiration(generateExpirationDate()).signWith(SignatureAlgorithm.ES512, secret).compact();
     }
 
     private Date generateExpirationDate() {
-        return new Date(System.currentTimeMillis()+ EXPIRATIONTIME *1000);
+        return new Date(System.currentTimeMillis()+ expiration *1000);
     }
 }
 

@@ -26,7 +26,7 @@ public class MainControler {
     @Autowired
     private UserServiсe userServiсe;
 
-    @PostMapping(value = "/registration")
+        @PostMapping(value = "/registration")
     public ResponseEntity<Response> registration(@RequestBody User user){
         User sUser = userServiсe.save(user);
         if (sUser!=null){

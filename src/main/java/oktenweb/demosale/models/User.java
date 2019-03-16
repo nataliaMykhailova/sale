@@ -34,14 +34,14 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String username, String password, String phoneNomber, String email, String firstName, String lastName, int age, String sex, String country, String city, List<Message> messages, Role role, Date creationDate, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
+    public User(String username, String password, String email, String firstName, String lastName, int age, String phoneNomber, String sex, String country, String city, List<Message> messages, Role role, Date creationDate, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.phoneNomber = phoneNomber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.phoneNomber = phoneNomber;
         this.sex = sex;
         this.country = country;
         this.city = city;
@@ -52,22 +52,6 @@ public class User implements Serializable {
         this.isAccountNonLocked = isAccountNonLocked;
         this.isCredentialsNonExpired = isCredentialsNonExpired;
         this.isEnabled = isEnabled;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNomber() {
-        return phoneNomber;
-    }
-
-    public void setPhoneNomber(String phoneNomber) {
-        this.phoneNomber = phoneNomber;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public long getId() {
@@ -94,6 +78,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -116,6 +108,14 @@ public class User implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getPhoneNomber() {
+        return phoneNomber;
+    }
+
+    public void setPhoneNomber(String phoneNomber) {
+        this.phoneNomber = phoneNomber;
     }
 
     public String getSex() {
